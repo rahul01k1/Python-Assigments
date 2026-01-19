@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>{% block title %}Leven Health{% endblock title %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Boxicons CDN -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+    <!-- Page-level CSS -->
+    {% block extra_css %}{% endblock extra_css %}
+
+</head>
+<body>
+
+
+
+    <!-- Navbar -->
+    {% include "partials/header.html" %}
+
+        {% if messages %}
+<div class="flash-messages">
+    {% for message in messages %}
+        <div class="flash-message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+    <!-- Page Content -->
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    {% include "partials/footer.html" %}
+
+    <!-- Main JS -->
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <!-- Page-level JS -->
+    {% block extra_js %}{% endblock extra_js %}
+
+    <!-- Inline JS (Optional) -->
+    <script>
+        // Global JS can be placed here if needed
+    </script>
+
+</body>
+</html>

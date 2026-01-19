@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Our Services | Leven Health{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HEADER -->
+<section class="doctor-page-header">
+    <h1>Our Healthcare Services</h1>
+    <p>Comprehensive medical solutions powered by trusted professionals</p>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="services-section">
+    <div class="services-container">
+
+        <div class="section-header">
+            <h2>What We Offer</h2>
+            <p>End-to-end healthcare services designed for your convenience</p>
+        </div>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+                <i class='bx bx-user-check'></i>
+                <h3>Verified Doctors</h3>
+                <p>All doctors are verified with qualifications and experience.</p>
+            </div>
+
+            <div class="service-card">
+                <i class='bx bx-calendar'></i>
+                <h3>Online Appointments</h3>
+                <p>Book appointments instantly with flexible scheduling.</p>
+            </div>
+
+            <div class="service-card">
+                <i class='bx bx-clinic'></i>
+                <h3>Specialist Care</h3>
+                <p>Access specialists across multiple medical fields.</p>
+            </div>
+
+            <div class="service-card">
+                <i class='bx bx-support'></i>
+                <h3>24/7 Support</h3>
+                <p>Continuous assistance for patients and doctors.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- MEDICAL SPECIALTIES -->
+<section class="specialties-section">
+    <div class="services-container">
+
+        <div class="section-header">
+            <h2>Medical Specialties</h2>
+            <p>Care across all major healthcare domains</p>
+        </div>
+
+        <div class="specialties-grid">
+            <span>Cardiology</span>
+            <span>Dermatology</span>
+            <span>Orthopedics</span>
+            <span>Pediatrics</span>
+            <span>Gynecology</span>
+            <span>Neurology</span>
+            <span>Psychiatry</span>
+            <span>ENT</span>
+        </div>
+
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="process-section">
+    <div class="services-container">
+
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Simple steps to get the care you need</p>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-card">
+                <span>01</span>
+                <h4>Search Doctor</h4>
+                <p>Browse doctors by specialization or experience.</p>
+            </div>
+
+            <div class="process-card">
+                <span>02</span>
+                <h4>Book Appointment</h4>
+                <p>Select a slot and book instantly.</p>
+            </div>
+
+            <div class="process-card">
+                <span>03</span>
+                <h4>Consult</h4>
+                <p>Visit the clinic or consult online.</p>
+            </div>
+
+            <div class="process-card">
+                <span>04</span>
+                <h4>Follow-Up</h4>
+                <p>Track appointments and reports easily.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+    <div class="services-container">
+
+        <div class="section-header">
+            <h2>What Patients Say</h2>
+            <p>Trusted by thousands across the country</p>
+        </div>
+
+        <div class="testimonials-grid">
+
+            <div class="testimonial-card">
+                <p>
+                    “Leven Health made booking doctors effortless.
+                    The experience was smooth and professional.”
+                </p>
+                <h4>— Rahul Mehta</h4>
+            </div>
+
+            <div class="testimonial-card">
+                <p>
+                    “Verified doctors and instant appointments.
+                    Highly recommended healthcare platform.”
+                </p>
+                <h4>— Anjali Sharma</h4>
+            </div>
+
+            <div class="testimonial-card">
+                <p>
+                    “Clean interface, helpful support, and trusted specialists.”
+                </p>
+                <h4>— Priya Desai</h4>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Your Health Deserves the Best</h2>
+    <p>Book appointments with trusted doctors today</p>
+    <a href="{% url 'doctor:doctor_list' %}" class="btn btn-primary">
+        Find Doctors
+    </a>
+</section>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Profile | Leven Health{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+    <div class="auth-card" style="max-width: 520px;">
+
+        <!-- Profile Header -->
+        <div style="text-align:center; margin-bottom: 24px;">
+            {% if user.profile.profile_image %}
+                <img 
+                    src="{{ user.profile.profile_image.url }}" 
+                    alt="Profile"
+                    style="
+                        width:120px;
+                        height:120px;
+                        border-radius:50%;
+                        object-fit:cover;
+                        border:3px solid #0d6efd;
+                        margin-bottom:14px;
+                    "
+                >
+            {% else %}
+                <img 
+                    src="{% static 'image/default.png' %}" 
+                    alt="Profile"
+                    style="
+                        width:120px;
+                        height:120px;
+                        border-radius:50%;
+                        object-fit:cover;
+                        border:3px solid #0d6efd;
+                        margin-bottom:14px;
+                    "
+                >
+            {% endif %}
+
+            <h2 style="margin-bottom:4px;">{{ user.username }}</h2>
+            <p class="auth-subtitle">
+                {{ user.profile.role|title }} Account
+            </p>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" value="{{ user.email }}" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="text" value="{{ user.profile.phone|default:'Not provided' }}" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>Account Status</label>
+            <input 
+                type="text" 
+                value="{% if user.profile.is_verified %}Verified{% else %}Not Verified{% endif %}" 
+                disabled
+            >
+        </div>
+
+        <div class="form-group">
+            <label>Joined On</label>
+            <input type="text" value="{{ user.date_joined|date:'d M Y' }}" disabled>
+        </div>
+
+        <!-- Actions -->
+       <div style="margin-top: 26px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+    <a href="{% url 'doctor:profile_update' %}" class="btn btn-secondary">
+        Edit Profile
+    </a>
+
+            <a href="{% url 'doctor:patient_dashboard' %}" class="btn btn-primary">
+                My Appointments
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

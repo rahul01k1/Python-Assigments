@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home | Leven Health{% endblock title %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-container">
+        <div class="hero-text">
+            <h1>Find Trusted Doctors Near You</h1>
+            <p>
+                Book appointments with verified doctors, explore healthcare services,
+                and manage your health seamlessly.
+            </p>
+
+            <div class="hero-actions">
+                <a href="{% url 'doctor:doctor_list' %}" class="btn btn-primary">Find Doctors</a>
+                <a href="#" class="btn btn-secondary">Our Services</a>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img src="{% static 'image/corousel.png' %}" alt="Healthcare">
+        </div>
+    </div>
+</section>
+
+<!-- DOCTORS SECTION (HOME – DETAIL STYLE CARDS) -->
+<section class="doctor-list">
+    <div class="doctor-list-container">
+
+        <div class="section-header">
+            <h2>Our Popular Doctors</h2>
+            <p>Experienced and verified specialists you can trust</p>
+        </div>
+
+        <!-- Grid -->
+        <div class="doctors-grid">
+
+            {% for doctor in doctors %}
+            <div class="doctor-card">
+
+                <img
+                    src="{% if doctor.profile_image %}{{ doctor.profile_image.url }}{% else %}{% static 'image/doctors/default.png' %}{% endif %}"
+                    alt="Doctor"
+                >
+
+                <h3>{{ doctor.full_name }}</h3>
+
+                <p class="specialization">
+                    {{ doctor.specialization }}
+                </p>
+
+                <p class="experience">
+                    {{ doctor.experience_years }}+ Years Experience
+                </p>
+
+                <p class="fee">
+                    ₹ {{ doctor.consultation_fee }} Consultation
+                </p>
+
+                <p style="margin-top: 14px; font-size: 14px; color: #495057;">
+                    {{ doctor.qualification }}
+                </p>
+
+                {% if doctor.about %}
+                <p style="margin-top: 14px; font-size: 14px; line-height: 1.6;">
+                    {{ doctor.about|truncatewords:18 }}
+                </p>
+                {% endif %}
+
+               <div class="doctor-card-actions" style="margin-top: 18px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+
+                    <a href="{% url 'doctor:doctor_detail' doctor.id %}"
+                    class="btn btn-secondary doctor-btn">
+                        View Profile
+                    </a>
+
+                    <a href="{% url 'doctor:book_appointment' doctor.id %}"
+                    class="btn btn-primary">
+                        Book Appointment
+                    </a>
+
+
+                </div>
+
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SEE MORE DOCTORS -->
+<div class="see-more-wrapper">
+    <a href="{% url 'doctor:doctor_list' %}" class="see-more-btn">
+        <i class='bx bx-right-arrow-alt'></i>
+        See More Doctors
+    </a>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="features-container">
+
+        <div class="feature-card">
+            <i class='bx bx-user-check'></i>
+            <h3>Verified Doctors</h3>
+            <p>All doctors are verified with proper qualifications.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class='bx bx-calendar-check'></i>
+            <h3>Easy Appointments</h3>
+            <p>Book appointments quickly with a simple process.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class='bx bx-clinic'></i>
+            <h3>Healthcare Services</h3>
+            <p>Access multiple healthcare services in one place.</p>
+        </div>
+
+        <div class="feature-card">
+            <i class='bx bx-support'></i>
+            <h3>24/7 Support</h3>
+            <p>We are always here to assist your healthcare needs.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Your Health, Our Priority</h2>
+    <p>Join thousands of users trusting Leven Health.</p>
+    <a href="#" class="btn btn-primary">Get Started</a>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us | Leven Health{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* ==========================
+   CONTACT PAGE – PRO LEVEL
+========================== */
+
+/* ---------- PAGE HEADER ---------- */
+.doctor-page-header {
+    padding: 70px 20px 40px;
+    background: linear-gradient(180deg, #e6f3ff 0%, #f8fbff 100%);
+    text-align: center;
+}
+
+.doctor-page-header h1 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #0d6efd;
+    letter-spacing: -0.4px;
+}
+
+.doctor-page-header p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #495057;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------- GRID BALANCE ---------- */
+.doctor-grid {
+    align-items: stretch;
+    gap: 34px;
+}
+
+/* ---------- CARD POLISH ---------- */
+.doctor-card {
+    padding: 28px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+    border: 1px solid #e3efff;
+    box-shadow:
+        0 10px 24px rgba(13, 110, 253, 0.10),
+        0 30px 60px rgba(13, 110, 253, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.doctor-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 18px 36px rgba(13, 110, 253, 0.14),
+        0 40px 80px rgba(13, 110, 253, 0.08);
+}
+
+.doctor-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #084298;
+    margin-bottom: 12px;
+}
+
+/* ---------- FORM REFINEMENT ---------- */
+.doctor-card form {
+    margin-top: 18px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #084298;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-group input,
+.doctor-card textarea {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1.5px solid #dbe7ff;
+    font-size: 14px;
+    background-color: #fdfefe;
+}
+
+.doctor-card textarea {
+    height: auto;
+    padding: 12px 14px;
+    resize: none;
+}
+
+.form-group input:focus,
+.doctor-card textarea:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    background-color: #ffffff;
+}
+
+/* Submit button */
+.doctor-card .auth-btn {
+    width: 100%;
+    height: 52px;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    margin-top: 6px;
+}
+
+/* ---------- CONTACT INFO ---------- */
+.doctor-card p.experience {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #495057;
+    margin-bottom: 6px;
+}
+
+/* ---------- MINI MAP ---------- */
+.mini-map {
+    margin-top: 18px;
+    width: 100%;
+    height: 230px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e3efff;
+    box-shadow: 0 10px 26px rgba(13, 110, 253, 0.14);
+}
+
+.mini-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ---------- TESTIMONIALS ---------- */
+.features {
+    padding-top: 60px;
+}
+
+.features .feature-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 14px 32px rgba(13, 110, 253, 0.12);
+}
+
+.features .feature-card p {
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #495057;
+}
+
+.features .feature-card h3 {
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .doctor-page-header h1 {
+        font-size: 30px;
+    }
+
+    .doctor-card {
+        padding: 22px;
+    }
+
+    .mini-map {
+        height: 200px;
+    }
+}
+
+
+</style>
+
+
+<!-- PAGE HEADER -->
+<section class="doctor-page-header">
+    <h1>Contact Us</h1>
+    <p>We are here to help you with your healthcare needs</p>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="doctors">
+    <div class="doctors-container">
+
+        <div class="section-header">
+            <h2>Get in Touch</h2>
+            <p>Have questions? Reach out to us anytime</p>
+        </div>
+
+        <div class="doctor-grid">
+
+            <!-- CONTACT FORM -->
+            <div class="doctor-card" style="text-align:left;">
+                <h3>Send Us a Message</h3>
+
+               <form method="post">
+                    {% csrf_token %}
+
+                   <div class="form-group">
+                        <label>Full Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value="{% if user.is_authenticated %}{{ user.get_full_name|default:user.username }}{% endif %}"
+                            {% if user.is_authenticated %}readonly{% endif %}
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value="{% if user.is_authenticated %}{{ user.email }}{% endif %}"
+                            {% if user.is_authenticated %}readonly{% endif %}
+                            required
+                        >
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea name="message" rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary auth-btn">
+                        Send Message
+                    </button>
+                </form>
+
+            </div>
+
+            <!-- CONTACT INFO -->
+            <div class="doctor-card">
+                <h3>Contact Information</h3>
+
+                <p class="experience">📍 Ahmedabad, Gujarat</p>
+                <p class="experience">📞 +91 98765 43210</p>
+                <p class="experience">✉️ support@levenhealth.com</p>
+
+                <p style="margin-top:14px;font-size:14px;">
+                    Our team responds within 24 hours.
+                </p>
+                <div class="mini-map">
+                    <iframe
+                        src="https://www.google.com/maps?q=Ahmedabad,Gujarat&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <p style="margin-top:12px;font-size:14px;color:#495057;">
+                    Visit our office for in-person assistance.
+                </p>
+            </div>
+            </div>
+        
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="features">
+    <div class="features-container">
+
+        <div class="feature-card">
+            <p>"Leven Health made booking doctors incredibly easy."</p>
+            <h3>— Rahul Mehta</h3>
+        </div>
+
+        <div class="feature-card">
+            <p>"Professional doctors and smooth appointment system."</p>
+            <h3>— Sneha Patel</h3>
+        </div>
+
+        <div class="feature-card">
+            <p>"Best healthcare platform I’ve used so far."</p>
+            <h3>— Ankit Shah</h3>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

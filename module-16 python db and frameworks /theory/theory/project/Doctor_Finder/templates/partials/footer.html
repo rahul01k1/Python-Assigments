@@ -1,0 +1,66 @@
+{% load static %}
+<footer class="footer">
+    <div class="footer-container">
+
+        <!-- ABOUT -->
+        <div class="footer-box">
+            <h4>Leven Health</h4>
+            <p>
+                A trusted healthcare platform to find verified doctors,
+                book appointments, and manage your health with confidence.
+            </p>
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="footer-box">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="{% url 'doctor:home' %}">Home</a></li>
+                <li><a href="{% url 'doctor:doctor_list' %}">Find Doctors</a></li>
+                <li><a href="{% url 'doctor:services' %}">Services</a></li>
+                <li><a href="{% url 'doctor:contact' %}">Contact</a></li>
+                <li><a href="{% url 'doctor:about' %}">About Us</a></li>
+            </ul>
+        </div>
+
+        <!-- USER LINKS (ROLE AWARE) -->
+        <div class="footer-box">
+            <h4>Account</h4>
+            <ul>
+                {% if user.is_authenticated %}
+                    {% if user.profile.role == "patient" %}
+                        <li><a href="{% url 'doctor:profile' %}">My Profile</a></li>
+                        <li><a href="{% url 'doctor:patient_dashboard' %}">My Appointments</a></li>
+                    {% elif user.profile.role == "doctor" %}
+                        <li><a href="{% url 'doctor:doctor_dashboard' %}">Doctor Dashboard</a></li>
+                    {% endif %}
+                    <li>
+                        <form method="post" action="{% url 'doctor:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'doctor:login' %}">Login</a></li>
+                    <li><a href="{% url 'doctor:signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div class="footer-box">
+            <h4>Contact</h4>
+            <p>Email: <a href="mailto:support@levenhealth.com">support@levenhealth.com</a></p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Location: Ahmedabad, India</p>
+        </div>
+
+    </div>
+
+    <!-- FOOTER BOTTOM -->
+    <div class="footer-bottom">
+        © {% now "Y" %} Leven Health. All rights reserved.
+    </div>
+</footer>

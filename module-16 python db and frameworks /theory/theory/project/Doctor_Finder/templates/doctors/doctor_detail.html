@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Dr. {{ doctor.full_name }} | Leven Health
+{% endblock %}
+
+{% block content %}
+
+<section class="doctor-list">
+    <div class="doctor-list-container">
+
+        <div class="doctor-card" style="max-width: 520px; margin: auto;">
+
+            <img
+                src="{% if doctor.profile_image %}{{ doctor.profile_image.url }}{% else %}{% static 'image/doctors/default.png' %}{% endif %}"
+                alt="Doctor"
+            >
+
+            <h3> {{ doctor.full_name }}</h3>
+
+            <p class="specialization">
+                {{ doctor.specialization }}
+            </p>
+
+            <p class="experience">
+                {{ doctor.experience_years }}+ Years Experience
+            </p>
+
+            <p class="fee">
+                ₹ {{ doctor.consultation_fee }} Consultation
+            </p>
+
+            <p style="margin-top: 14px; font-size: 14px; color: #495057;">
+                {{ doctor.qualification }}
+            </p>
+
+            {% if doctor.about %}
+            <p style="margin-top: 14px; font-size: 14px; line-height: 1.6;">
+                {{ doctor.about }}
+            </p>
+            {% endif %}
+
+            <div class="doctor-card-actions" style="margin-top: 20px;">
+                <a href="#" class="btn btn-primary doctor-btn">
+                    Book Appointment
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

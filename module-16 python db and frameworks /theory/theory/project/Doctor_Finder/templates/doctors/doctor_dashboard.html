@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Doctor Dashboard | Leven Health{% endblock %}
+
+{% block content %}
+<section class="doctor-list">
+    <div class="doctor-list-container">
+
+        <h2 style="text-align:center;margin-bottom:30px;">
+            My Appointments
+        </h2>
+
+        {% for appt in appointments %}
+        <div class="doctor-card">
+
+            <h3>{{ appt.patient.user.username }}</h3>
+            <p>Date: {{ appt.appointment_date }}</p>
+            <p>Status: <strong>{{ appt.status }}</strong></p>
+
+            <div class="doctor-card-actions">
+                {% if appt.status == "pending" %}
+                <a href="{% url 'doctor:approve_appointment' appt.id %}"
+                   class="btn btn-primary doctor-btn">
+                    Approve
+                </a>
+
+                <a href="{% url 'doctor:reject_appointment' appt.id %}"
+                   class="btn btn-secondary doctor-btn">
+                    Reject
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+        {% empty %}
+        <p style="text-align:center;">No appointments yet.</p>
+        {% endfor %}
+
+    </div>
+</section>
+{% endblock %}

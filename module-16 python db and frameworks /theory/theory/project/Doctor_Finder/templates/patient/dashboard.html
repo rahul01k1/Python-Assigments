@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Appointments | Leven Health{% endblock %}
+
+{% block content %}
+
+<!-- PAGE HEADER -->
+<section class="doctor-page-header">
+    <h1>My Appointments</h1>
+    <p>View and track all your booked appointments</p>
+</section>
+
+<!-- APPOINTMENTS LIST -->
+<section class="doctor-list">
+    <div class="doctor-list-container">
+
+        {% if appointments %}
+
+        <div class="doctors-grid">
+
+            {% for appointment in appointments %}
+            <div class="doctor-card">
+
+                <!-- Doctor Image -->
+                <img
+                    src="{% if appointment.doctor.profile_image %}
+                            {{ appointment.doctor.profile_image.url }}
+                         {% else %}
+                            {% static 'image/doctors/default.png' %}
+                         {% endif %}"
+                    alt="Doctor"
+                >
+
+                <!-- Doctor Info -->
+                <h3>Dr. {{ appointment.doctor.full_name }}</h3>
+
+                <p class="specialization">
+                    {{ appointment.doctor.specialization }}
+                </p>
+
+                <p class="experience">
+                    {{ appointment.doctor.experience_years }}+ Years Experience
+                </p>
+
+                <!-- Appointment Info -->
+                <p class="fee">
+                    📅 {{ appointment.appointment_date }} <br>
+                    ⏰ {{ appointment.appointment_time }}
+                </p>
+
+                <!-- Status Badge -->
+                <div style="margin-top: 12px;">
+                    <span
+                        style="
+                            display: inline-block;
+                            padding: 6px 14px;
+                            border-radius: 20px;
+                            font-size: 13px;
+                            font-weight: 600;
+                            background-color:
+                                {% if appointment.status == 'approved' %}#d1e7dd
+                                {% elif appointment.status == 'rejected' %}#f8d7da
+                                {% elif appointment.status == 'completed' %}#e2e3e5
+                                {% else %}#fff3cd{% endif %};
+                            color:
+                                {% if appointment.status == 'approved' %}#0f5132
+                                {% elif appointment.status == 'rejected' %}#842029
+                                {% elif appointment.status == 'completed' %}#41464b
+                                {% else %}#664d03{% endif %};
+                        "
+                    >
+                        {{ appointment.status|title }}
+                    </span>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <!-- EMPTY STATE -->
+        <div style="text-align: center; padding: 60px 20px;">
+            <img
+                src="{% static 'image/empty-state.png' %}"
+                alt="No Appointments"
+                style="max-width: 220px; opacity: 0.8;"
+            >
+
+            <h3 style="margin-top: 20px;">
+                No appointments yet
+            </h3>
+
+            <p style="color: #6c757d; margin-bottom: 20px;">
+                Book your first appointment with trusted doctors.
+            </p>
+
+            <a href="{% url 'doctor:doctor_list' %}" class="btn btn-primary">
+                Book Appointment
+            </a>
+        </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

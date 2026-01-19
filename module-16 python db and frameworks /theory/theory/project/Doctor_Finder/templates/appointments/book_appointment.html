@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Book Appointment | Leven Health{% endblock %}
+
+{% block content %}
+<section class="doctor-list">
+    <div class="doctor-list-container">
+
+        <!-- Doctor Summary -->
+        <div class="doctor-card" style="max-width: 520px; margin: auto;">
+
+            <img
+                src="{% if doctor.profile_image %}{{ doctor.profile_image.url }}{% else %}{% static 'image/doctors/default.png' %}{% endif %}"
+                alt="Doctor"
+            >
+
+            <h3>Dr. {{ doctor.full_name }}</h3>
+            <p class="specialization">{{ doctor.specialization }}</p>
+            <p class="experience">{{ doctor.experience_years }}+ Years Experience</p>
+            <p class="fee">₹ {{ doctor.consultation_fee }} Consultation</p>
+
+        </div>
+
+        <!-- Appointment Form -->
+        <div class="auth-card" style="margin: 40px auto 0; max-width: 520px;">
+
+            <h2>Book Appointment</h2>
+            <p class="auth-subtitle">
+                Fill the details to confirm your appointment.
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input type="text" value="{{ request.user.username }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Appointment Date</label>
+                    <input type="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Preferred Time</label>
+                    <input type="time" name="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Reason (optional)</label>
+                    <input type="text" name="reason" placeholder="Eg: Fever, Checkup">
+                </div>
+
+                <button type="submit" class="btn btn-primary auth-btn">
+                    Confirm Appointment
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+</section>
+{% endblock %}

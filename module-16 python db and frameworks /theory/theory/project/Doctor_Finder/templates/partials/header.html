@@ -1,0 +1,107 @@
+{% load static %}
+
+<header id="mainNavbar" class="navbar">
+    <div class="navbar-container">
+
+        <!-- Logo & Project Name -->
+        <div class="nav-brand">
+            <a href="{% url 'doctor:home' %}" class="nav-brand-link">
+                <img src="{% static 'image/logo.jpg' %}" alt="Leven Health Logo">
+                <span class="project-name">Leven Health</span>
+            </a>
+        </div>
+
+
+        <!-- Navigation Links -->
+        <nav class="nav-links">
+            <a href="{% url 'doctor:home' %}">Home</a>
+            <a href="{% url 'doctor:doctor_list' %}">Doctors</a>
+           <a href="{% url 'doctor:services' %}">Services</a>
+            <a href="{% url 'doctor:contact' %}">Contact</a>
+            <a href="{% url 'doctor:about' %}">About</a>
+
+        </nav>
+
+        <!-- Right Actions -->
+        <div class="nav-action">
+
+            {% if user.is_authenticated %}
+
+                {% if user.profile.role == "patient" %}
+                <!-- =====================
+                     PATIENT PROFILE BOX
+                ====================== -->
+
+                <div class="profile-box profile-dropdown">
+
+                    <button type="button" class="profile-box-btn">
+                        {% if user.profile.profile_image %}
+                            <img
+                                src="{{ user.profile.profile_image.url }}"
+                                alt="Profile"
+                                class="profile-avatar"
+                            >
+                        {% else %}
+                            <img
+                                src="{% static 'image/default.png' %}"
+                                alt="Profile"
+                                class="profile-avatar"
+                            >
+                        {% endif %}
+
+                        <span class="profile-name">
+                            {{ user.username }}
+                        </span>
+
+                        <i class='bx bx-chevron-down'></i>
+                    </button>
+
+                    <div class="dropdown-menu">
+                        <a href="{% url 'doctor:profile' %}">My Profile</a>
+
+                        <a href="{% url 'doctor:patient_dashboard' %}">
+                            My Appointments
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <form method="post" action="{% url 'doctor:logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-btn">
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+                {% else %}
+                <!-- =====================
+                     OTHER AUTH USERS
+                ====================== -->
+                <a href="{% url 'doctor:home' %}" class="login-btn">
+                    Dashboard
+                </a>
+                {% endif %}
+
+            {% else %}
+            <!-- =====================
+                 GUEST USER
+            ====================== -->
+            <a href="{% url 'doctor:login' %}" class="login-btn">
+                Login
+            </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+</header>
+
+<script>
+    const navbar = document.getElementById("mainNavbar");
+
+    window.addEventListener("scroll", () => {
+        navbar.classList.toggle("scrolled", window.scrollY > 10);
+    });
+</script>

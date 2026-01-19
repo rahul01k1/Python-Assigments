@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Appointments | Leven Health{% endblock %}
+
+{% block content %}
+<section class="doctor-list">
+    <div class="doctor-list-container">
+
+        <div class="section-header">
+            <h2>My Appointments</h2>
+            <p>Your booked appointments</p>
+        </div>
+
+        {% if appointments %}
+            <div class="doctors-grid">
+
+                {% for appt in appointments %}
+                <div class="doctor-card">
+
+                    <img
+                        src="{% if appt.doctor.profile_image %}{{ appt.doctor.profile_image.url }}{% else %}{% static 'image/doctors/default.png' %}{% endif %}"
+                        alt="Doctor"
+                    >
+
+                    <h3>Dr. {{ appt.doctor.full_name }}</h3>
+
+                    <p class="specialization">
+                        {{ appt.doctor.specialization }}
+                    </p>
+
+                    <p class="experience">
+                        {{ appt.appointment_date }} at {{ appt.appointment_time }}
+                    </p>
+
+                    <p class="fee">
+                        Status:
+                        <strong>{{ appt.status|title }}</strong>
+                    </p>
+
+                </div>
+                {% endfor %}
+
+            </div>
+        {% else %}
+            <p style="text-align:center; margin-top:40px;">
+                You have no appointments yet.
+            </p>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}
